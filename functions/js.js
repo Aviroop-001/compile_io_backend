@@ -1,6 +1,6 @@
 const { exec } = require("child_process");
 
-function runJavaScript(filePath, input, callback) {
+function runJavaScript(filePath, callback) {
   
   const runCommand = `node ${filePath}`;
   exec(runCommand, (runError, runStdout, runStderr) => {
@@ -12,11 +12,6 @@ function runJavaScript(filePath, input, callback) {
       callback(null, runStdout);
     }
   });
-
-  if (input) {
-    process.stdin.write(input);
-    process.stdin.end();
-  }
 }
 
 module.exports = { runJavaScript };

@@ -31,7 +31,7 @@ router.post("/compile", (req, res) => {
       break;
 
     case "js":
-      runJavaScript(filePath, input, (error, output) => {
+      runJavaScript(filePath, (error, output) => {
         if (error) {
           res.status(500).json(error);
         } else {
