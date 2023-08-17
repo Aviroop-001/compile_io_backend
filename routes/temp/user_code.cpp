@@ -1,17 +1,7 @@
-#include<bits/stdc++.h>
-using namespace std;
-int main(){
-    cout<<"Hello world"<<endl;
-    int n, e, k;
-    cin>>n;
-    vector<int> vec(n,0);
-    for(int i=0; i<n; i++){
-        cin>>e;
-        vec[i]=e;
-    }
-    for(auto i: vec)
-        cout<<i<<"\n";
-    cin>>k;
-    cout<<"This is k: "<<k<<endl;
+#include <iostream>
+
+int main() {
+    int *ptr = nullptr;
+    *ptr = 42; // This will cause a segmentation fault
     return 0;
 }

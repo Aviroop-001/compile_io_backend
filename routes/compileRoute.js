@@ -3,6 +3,7 @@ const router = express.Router();
 const { exec } = require("child_process");
 const fs = require("fs");
 const path = require("path");
+const Sk = require("skulpt");
 
 
 router.post("/compile", (req, res) => {
@@ -52,5 +53,49 @@ router.post("/compile", (req, res) => {
     }
   });
 });
+
+
+router.post("/compile-js", (req, res) => {
+  const {code} = req.body;
+
+  const fileName = `user_code.js`;
+  const filePath = path.join(__dirname, "temp", fileName);
+  fs.writeFileSync(filePath, code);
+
+  // Execution
+  exec(`node ${filePath}`, (error, stdout, stderr) => {
+    if (error) {
+      res.status(500).json({ stderr: stderr || error.message });
+    } else {
+      res.json({ output: stdout });
+    }
+  });
+});
+
+
+router.post("/compile-python", (req, res) => {
+  const { code, input } = req.body;
+
+  const fileName = `user_code.py`;
+  const filePath = path.join(__dirname, 'temp', fileName);
+  fs.writeFileSync(filePath, code);
+
+  const command = `python ${filePath}`;
+
+  const process = exec(command, (error, stdout, stderr) => {
+
+    if (error) {
+      res.status(500).json({ stderr: stderr || error.message });
+    } else {
+      res.json({ output: stdout });
+    }
+  });
+
+  if (input) {
+    process.stdin.write(input);
+    process.stdin.end();
+  }
+});
+
 
 module.exports = router;
