@@ -1,6 +1,7 @@
 const { exec } = require("child_process");
 
 function runJavaScript(filePath, callback) {
+  console.log(filePath);
   
   const runCommand = `node ${filePath}`;
   exec(runCommand, (runError, runStdout, runStderr) => {

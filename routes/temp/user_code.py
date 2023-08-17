@@ -13,4 +13,4 @@ def fibonacci(n):
         return fib
 result = fibonacci(n)
 for num in result:
-    print(num, end=' ')
+    print(num, end=' - ')
